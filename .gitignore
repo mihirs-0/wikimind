@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+
+# macOS
+.DS_Store
+
+# wikimind — local state, not tracked
+raw/*
+!raw/.gitkeep
+output/*
+!output/.gitkeep
+wiki/.search_cache.pkl
+
+# Editor / IDE
+.idea/
+.vscode/
+*.swp
