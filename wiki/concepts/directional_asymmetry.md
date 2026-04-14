@@ -1,6 +1,6 @@
 ---
 title: "Directional Asymmetry in Transformers"
-related_concepts: ["reversal_curse", "conditional_entropy_barrier", "wind_tunnel_methodology", "five_arrows_framework", "lora_bottleneck", "pretraining_prior", "reversal_invariance"]
+related_concepts: ["reversal_curse", "conditional_entropy_barrier", "wind_tunnel_methodology", "five_arrows_framework", "lora_bottleneck", "pretraining_prior", "reversal_invariance", "disambiguation_lag", "three_scaling_laws"]
 source_refs: ["raw/arrow_of_learning-7.md", "raw/paper-draft-direction.md", "raw/arrows-of-time-in-learning-systems.md", "raw/directionality-conditional-complexity_-a1-a2-1.md"]
 last_updated: 2026-04-14
 tags: ["directional_asymmetry", "reversal_curse", "transformers"]
@@ -47,3 +47,7 @@ Directional asymmetry is the composite surface phenomenon; the five arrows (Opti
 - **Is the from-scratch gap real?** `paper-draft-direction` reports a 2.1 vs 4.9 nat gap at K=5 from-scratch; `directionality-conditional-complexity_-a1-a2-1` reports ~0.4 nats at K=5; `arrow_of_learning-7` claims zero. Part-2 training logs show exact convergence at K=5 for `size=medium` from-scratch. The gap may be a function of training budget: short runs show a gap, long runs close it. See the Open Questions section of [[conditional_entropy_barrier]] for the reconciliation attempt.
 - **Does the gap interact with tokenizer or positional encoding choice?** Character-level tokenization vs BPE has not been directly ablated within this cluster.
 - **Mechanistic locus unknown.** No paper in this cluster attributes the gap to specific layers, attention heads, or representational subspaces.
+
+## Optimization-level companion: [[disambiguation_lag]]
+
+The Sahasrabudhe disambiguation work studies a related but distinct phenomenon — the *optimization-dynamics* signature of trying to invert a many-to-one mapping with auxiliary context. While [[directional_asymmetry]] is about pretrained vs from-scratch behavior, the disambiguation lag is studied entirely on **from-scratch** models and isolates the geometric difficulty of conditional binding. The two together provide complementary accounts: pretraining priors lock in a forward-biased prior; disambiguation lag explains why escaping that prior on the inverse direction is so geometrically hard (the [[three_scaling_laws]]: plateau duration ~K^1.3, gradient suppression ~K^-0.6, learning-rate failure above η*).

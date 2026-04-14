@@ -1,6 +1,6 @@
 ---
 title: "Synthetic Wind-Tunnel Methodology"
-related_concepts: ["directional_asymmetry", "conditional_entropy_barrier", "excess_loss"]
+related_concepts: ["directional_asymmetry", "conditional_entropy_barrier", "excess_loss", "disambiguation_lag", "three_scaling_laws", "z_shuffle_diagnostic"]
 source_refs: ["raw/arrow_of_learning-7.md", "raw/paper-draft-direction.md", "raw/directionality-conditional-complexity_-a1-a2-1.md", "raw/directionality-conditional-complexity_-a1-a2-1-part-2.md"]
 last_updated: 2026-04-14
 tags: ["methodology", "synthetic_data", "benchmark"]
@@ -70,3 +70,16 @@ Because the task has **no semantics, no lexical frequency, no morphology, no wor
 ## Source implementation
 
 Full `gpt2.py` script lives in `raw/directionality-conditional-complexity_-a1-a2-1-part-2.md` — GPT-2 config: `d_model=512, n_layer=8, n_head=8, d_ff=2048, dropout=0.1`. Train/val/test fractions 0.8/0.1/0.1. AdamW lr 2e-4, batch 64.
+
+## Variant: the disambiguation wind tunnel
+
+The [[disambiguation_lag]] research uses a closely related but distinct task design: instead of comparing forward `A → B` vs inverse `B → A` directions, it gives the model both `B` and a selector `z`, with `(B, z) → A`. The K-fold ambiguity is resolved deterministically by `z`, so `H(A | B, z) = 0` while `H(A | B) = log K`.
+
+Key differences from the directionality wind-tunnel:
+
+- **Single direction studied** — there is no "forward" vs "inverse" comparison; both `B` and `z` are present from the start
+- **K is the difficulty dial** for the *amount of information* that must be routed (`I(A; z | B) = log K`)
+- **All experiments from-scratch** (no pretrained baseline) — the focus is on optimization geometry, not pretraining priors
+- **Smaller model** (4-layer, 128-dim, 4-head) and `|B| = 1000` groups
+
+This variant produced the [[three_scaling_laws]] and the [[dissipation_scaling]] result, which the directionality wind-tunnel does not directly measure.

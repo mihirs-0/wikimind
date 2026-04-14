@@ -1,7 +1,7 @@
 ---
 title: "Reversal Curse"
-related_concepts: ["directional_asymmetry", "causal_arrow", "pretraining_prior", "masked_diffusion_models"]
-source_refs: ["raw/arrow_of_learning-7.md", "raw/paper-draft-direction.md", "raw/arrows-of-time-in-learning-systems.md"]
+related_concepts: ["directional_asymmetry", "causal_arrow", "pretraining_prior", "masked_diffusion_models", "disambiguation_lag", "three_scaling_laws"]
+source_refs: ["raw/arrow_of_learning-7.md", "raw/paper-draft-direction.md", "raw/arrows-of-time-in-learning-systems.md", "raw/disambig_paper.md", "raw/disambiguation_lag_v4_circuit_discovery.md"]
 last_updated: 2026-04-14
 tags: ["reversal_curse", "logical_reasoning"]
 ---
@@ -42,3 +42,14 @@ On Sahasrabudhe's synthetic wind-tunnel, the reversal curse emerges most severel
 ## Relation to other directional phenomena
 
 The reversal curse is the **logical/factual** manifestation of [[directional_asymmetry]]. The [[conditional_entropy_barrier]] is the **optimization-dynamics** manifestation. Both are instances of the same underlying Causal × Data × Optimizer interaction.
+
+## Optimization-level account: the [[disambiguation_lag]]
+
+The Sahasrabudhe disambiguation work provides a **quantitative** explanation for why the curse is so severe at scale. The backward direction `B → A` inverts a many-to-one mapping with fan-in K. Per the [[three_scaling_laws]]:
+
+- Plateau duration scales as `τ ∝ K^1.3` — backward needs ~K^1.3 more steps than forward to discover the disambiguation circuit
+- Above critical learning rate (`η* ≈ 5×10⁻³` for a 4-layer 128-dim setup), the basin is **never entered** — extending training does not help
+
+For biographical facts where descriptions match `K ≈ 20` entities, backward reasoning needs ~60× the forward training. This complements (does not replace) the factorization-curse account — factorization explains *why* the gradient signal is one-directional; disambiguation lag explains *how hard* the backward direction is even when the signal exists.
+
+Source refs added: `raw/disambig_paper.md`, `raw/disambiguation_lag_v4_circuit_discovery.md`.
